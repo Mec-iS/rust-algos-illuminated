@@ -10,7 +10,8 @@ mod tests {
     use super::*;
     use test::Bencher;
 
-    use rust_algos_illuminated::chapter_one::{RecIntMul, Karatsuba};
+    use rust_algos_illuminated::chapter_one::{
+        RecIntMul, Karatsuba, IntMul};
 
     #[test]
     fn test_RecIntMul() {
@@ -30,6 +31,11 @@ mod tests {
     #[bench]
     fn bench_chap1_mult_karat(b: &mut Bencher) {
         b.iter(|| Karatsuba(12, 13));
+    }
+
+    #[bench]
+    fn bench_chap1_mult_std(b: &mut Bencher) {
+        b.iter(|| IntMul(12, 13));
     }
 
 }
