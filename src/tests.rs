@@ -38,4 +38,25 @@ mod tests {
         b.iter(|| IntMul(12, 13));
     }
 
+    use rust_algos_illuminated::chapter_one::{selectionSort, isSorted};
+
+    #[test]
+    fn test_isSorted() {
+        assert_eq!(isSorted(&[2i32, 4i32, 1i32 ,3i32].to_vec()), false);
+        assert_eq!(isSorted(&[1i32, 2i32, 3i32, 4i32].to_vec()), true);
+        assert_eq!(isSorted(&[35i32, 12i32, 36i32, 37i32].to_vec()), false);
+    }
+
+    #[test]
+    fn test_quadSort() {
+        assert_eq!(selectionSort([2i32, 4i32, 1i32 ,3i32].to_vec()),
+            [1i32, 2i32, 3i32, 4i32].to_vec());
+    }
+
+    // #[test]
+    // fn test_MergeSort() {
+    //     assert_eq!(MergeSort([2i32, 4i32, 1i32 ,3i32].to_vec()),
+    //         [1i32, 2i32, 3i32, 4i32].to_vec());
+    // }
+
 }

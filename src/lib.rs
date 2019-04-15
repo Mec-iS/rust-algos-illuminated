@@ -78,4 +78,115 @@ pub mod chapter_one {
 
     }
 
+    /// Paragraph 1.4 Sorting
+    /// Check if an array is sorted
+    pub fn isSorted(arr: &Vec<i32>) -> bool {
+        if arr.len() == 1 || arr.len() == 0 {
+            // base case: array is already ordered
+            return true
+        }
+
+        let n = arr.len();
+        if n == 1 {
+            return true
+        }
+
+        for (i, el) in arr.iter().enumerate() {
+            if i+1 > n-1 {
+                // loop reached the end
+                return true
+            }
+            if el > &arr[i+1] {
+                return false
+            };
+        }
+        true
+    }
+
+
+    /// Paragraph 1.4 Sorting
+    /// Sort an array in quadratic time
+    pub fn selectionSort(arr: Vec<i32>) -> Vec<i32> {
+        if isSorted(&arr) {
+            // base case: array is already ordered
+            return arr
+        }
+
+        //let mut vec = arr;
+        // vec.sort();
+
+        let n = arr.len();
+        let mut swap_arr: Vec<i32> = arr.clone();
+
+        // advance the position through the entire array
+        for j in 0..n-1 {
+            // assume the min is the first element 
+            let mut i_min: usize = j as usize;
+
+            // test against elements after j to find the smallest
+            for i in j+1..n {
+                if swap_arr[i] < swap_arr[i_min] {
+                    // if this element is less, then it is the new minimum
+                    i_min = i as usize
+                }
+            }
+
+            if i_min != j {
+                swap_arr.swap(j, i_min as usize);
+            }
+
+        }
+
+        swap_arr
+    }
+
+    // /// PARAGRAPH 1.4.4 and 1.4.5
+    // /// Basic Merge-Sort for two arrays
+    // pub fn MergeSort(arr: Vec<i32>) -> Vec<i32> {
+    //     let n = arr.len();
+
+    //     if n == 1 || n == 0 {
+    //         return arr
+    //     }
+
+    //     fn Merge(c: Vec<i32>, d: Vec<i32>) -> Vec<i32> {
+    //         let l: usize = c.len() + d.len();
+
+    //         // create a vector of 0s
+    //         let mut b: Vec<i32> = vec![0; l];
+
+    //         let mut i: usize = 1;
+    //         let mut j: usize = 1;
+
+    //         for k in 0..l-1 {
+    //             if c[i] < d[j] {
+    //                 b[k] = c[i];
+    //                 i += 1;
+    //             }
+    //             else {
+    //                 b[k] = d[j];
+    //                 j += 1;
+    //             }
+    //         }
+
+    //         return b
+
+    //     }
+
+    //     let n = arr.len() as f32;
+    //     let i: usize = (n/2 as f32).floor() as usize;
+
+    //     // divide the input
+    //     let a = arr[0..i].to_vec();
+    //     let b = arr[i..].to_vec();
+
+    //     let divide_first = Sort(a);
+    //     let divide_second = Sort(b);
+
+    //     return Merge(divide_first, divide_second)
+
+    // }
+
+
+
 }
