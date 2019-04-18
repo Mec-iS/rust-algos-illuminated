@@ -3,8 +3,8 @@
 //  of algorithms in the book)
 
 ///
-/// A collection of algorithms as presented in 
-/// the book "Algorithms Illuminated Part 1" by Tim 
+/// A collection of algorithms as presented in
+/// the book "Algorithms Illuminated Part 1" by Tim
 /// Roughgarden.
 /// -----------------------------------------------
 ///
@@ -20,7 +20,7 @@ pub mod chapter_one {
     }
 
     // PARAGRAPH 1.3.2
-    // a recursive implementation by 
+    // a recursive implementation by
     // slicing into shorter integers (n/2-digits integers)
     // (integers have same lenght n)
     pub fn RecIntMul(x: u64, y: u64) -> u64 {
@@ -120,7 +120,7 @@ pub mod chapter_one {
 
         // advance the position through the entire array
         for j in 0..n-1 {
-            // assume the min is the first element 
+            // assume the min is the first element
             let mut i_min: usize = j as usize;
 
             // test against elements after j to find the smallest
@@ -140,52 +140,88 @@ pub mod chapter_one {
         swap_arr
     }
 
-    // /// PARAGRAPH 1.4.4 and 1.4.5
-    // /// Basic Merge-Sort for two arrays
-    // pub fn MergeSort(arr: Vec<i32>) -> Vec<i32> {
-    //     let n = arr.len();
-
-    //     if n == 1 || n == 0 {
-    //         return arr
+    // fn quicksort<T: Ord>(slice: &mut [T]) {
+    //     if slice.len() <= 1 {
+    //         return; // Nothing to sort.
     //     }
-
-    //     fn Merge(c: Vec<i32>, d: Vec<i32>) -> Vec<i32> {
-    //         let l: usize = c.len() + d.len();
-
-    //         // create a vector of 0s
-    //         let mut b: Vec<i32> = vec![0; l];
-
-    //         let mut i: usize = 1;
-    //         let mut j: usize = 1;
-
-    //         for k in 0..l-1 {
-    //             if c[i] < d[j] {
-    //                 b[k] = c[i];
-    //                 i += 1;
-    //             }
-    //             else {
-    //                 b[k] = d[j];
-    //                 j += 1;
-    //             }
-    //         }
-
-    //         return b
-
-    //     }
-
-    //     let n = arr.len() as f32;
-    //     let i: usize = (n/2 as f32).floor() as usize;
-
-    //     // divide the input
-    //     let a = arr[0..i].to_vec();
-    //     let b = arr[i..].to_vec();
-
-    //     let divide_first = Sort(a);
-    //     let divide_second = Sort(b);
-
-    //     return Merge(divide_first, divide_second)
-
+    //     // Partition the slice into two parts, front and back.
+    //     let pivot_index = partition(slice);
+    //     // Recursively sort the front half of `slice`.
+    //     quicksort(&mut slice[.. pivot_index]);
+    //
+    //     quicksort(&mut slice[pivot_index + 1 ..]);
     // }
+
+    /// PARAGRAPH 1.4.4 and 1.4.5
+    /// Basic Merge-Sort for two arrays
+    pub fn MergeSort(arr: Vec<i32>) -> Vec<i32> {
+        let n = arr.len();
+
+        if n == 0 || n == 1 || isSorted(&arr) {
+            return arr
+        }
+
+        if n < 3 {
+            return selectionSort(arr)
+        }
+
+        fn Merge(c: Vec<i32>, d: Vec<i32>) -> Vec<i32> {
+            let l: usize = c.len() + d.len();
+
+            println!("C: {:?}", c);
+            println!("D: {:?}", d);
+
+            // initialize result array
+            let mut b: Vec<i32> = vec!(0; l);
+
+            let mut i: usize = 0;
+            let mut j: usize = 0;
+
+            for k in 0..l {
+                // get value or None from the two array
+                let (c_value, d_value) = (c.get(i), d.get(j));
+
+                match (c_value, d_value) {
+                    (None, None) => break,
+                    (None, Some(_)) => {
+                        b[k] = d[j];
+                        j += 1;
+                    },
+                    (Some(_), None) => {
+                        b[k] = c[i];
+                        i += 1;
+                    },
+                    (Some(_), Some(_)) =>  match c_value.unwrap() < d_value.unwrap() {
+                        true => {
+                            b[k] = c[i];
+                            b[k+1] = d[j];
+                            i += 1;
+                        },
+                        false => {
+                            b[k] = d[j];
+                            b[k+1] = c[i];
+                            j += 1;
+                        }
+                    }
+                }
+            }
+
+            return b
+
+        }
+
+        let n = arr.len() as f32;
+        let i: usize = (n/2 as f32).floor() as usize;
+
+        // divide the input
+        let (a, b) = arr.split_at(i);
+
+        let divide_first = selectionSort(a.to_vec());
+        let divide_second = selectionSort(b.to_vec());
+
+        return Merge(divide_first, divide_second)
+
+    }
 
 
 
