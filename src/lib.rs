@@ -140,21 +140,9 @@ pub mod chapter_one {
         swap_arr
     }
 
-    // fn quicksort<T: Ord>(slice: &mut [T]) {
-    //     if slice.len() <= 1 {
-    //         return; // Nothing to sort.
-    //     }
-    //     // Partition the slice into two parts, front and back.
-    //     let pivot_index = partition(slice);
-    //     // Recursively sort the front half of `slice`.
-    //     quicksort(&mut slice[.. pivot_index]);
-    //
-    //     quicksort(&mut slice[pivot_index + 1 ..]);
-    // }
-
-    /// PARAGRAPH 1.4.4 and 1.4.5
+    /// PARAGRAPH 1.4.4
     /// Basic Merge-Sort for two arrays
-    pub fn MergeSort(arr: Vec<i32>) -> Vec<i32> {
+    pub fn MergeSelectionSort(arr: Vec<i32>) -> Vec<i32> {
         let n = arr.len();
 
         if n == 0 || n == 1 || isSorted(&arr) {
@@ -163,51 +151,6 @@ pub mod chapter_one {
 
         if n < 3 {
             return selectionSort(arr)
-        }
-
-        fn Merge(c: Vec<i32>, d: Vec<i32>) -> Vec<i32> {
-            let l: usize = c.len() + d.len();
-
-            println!("C: {:?}", c);
-            println!("D: {:?}", d);
-
-            // initialize result array
-            let mut b: Vec<i32> = vec!(0; l);
-
-            let mut i: usize = 0;
-            let mut j: usize = 0;
-
-            for k in 0..l {
-                // get value or None from the two array
-                let (c_value, d_value) = (c.get(i), d.get(j));
-
-                match (c_value, d_value) {
-                    (None, None) => break,
-                    (None, Some(_)) => {
-                        b[k] = d[j];
-                        j += 1;
-                    },
-                    (Some(_), None) => {
-                        b[k] = c[i];
-                        i += 1;
-                    },
-                    (Some(_), Some(_)) =>  match c_value.unwrap() < d_value.unwrap() {
-                        true => {
-                            b[k] = c[i];
-                            b[k+1] = d[j];
-                            i += 1;
-                        },
-                        false => {
-                            b[k] = d[j];
-                            b[k+1] = c[i];
-                            j += 1;
-                        }
-                    }
-                }
-            }
-
-            return b
-
         }
 
         let n = arr.len() as f32;
@@ -220,6 +163,55 @@ pub mod chapter_one {
         let divide_second = selectionSort(b.to_vec());
 
         return Merge(divide_first, divide_second)
+
+    }
+
+    /// Paragraph 1.4.5
+    /// Merge subroutine
+    pub fn Merge(c: Vec<i32>, d: Vec<i32>) -> Vec<i32> {
+        let l: usize = c.len() + d.len();
+
+        // initialize result array
+        let mut b: Vec<i32> = vec!(0; l);
+
+        // initialize readers indexes
+        let mut i: usize = 0;
+        let mut j: usize = 0;
+
+        for k in 0..l {
+            // get value or None from the two array
+            let (c_value, d_value) = (c.get(i), d.get(j));
+
+            match (c_value, d_value) {
+                // reading arrays are done
+                (None, None) => break,
+                // d is larger, keep going
+                (None, Some(_)) => {
+                    b[k] = d[j];
+                    j += 1;
+                },
+                // c is larger, keep going
+                (Some(_), None) => {
+                    b[k] = c[i];
+                    i += 1;
+                },
+                // generic case, keep going
+                (Some(_), Some(_)) =>  match c_value.unwrap() < d_value.unwrap() {
+                    true => {
+                        b[k] = c[i];
+                        b[k+1] = d[j];
+                        i += 1;
+                    },
+                    false => {
+                        b[k] = d[j];
+                        b[k+1] = c[i];
+                        j += 1;
+                    }
+                }
+            }
+        }
+
+        return b
 
     }
 

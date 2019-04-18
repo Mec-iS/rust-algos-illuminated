@@ -38,7 +38,7 @@ mod tests {
         b.iter(|| IntMul(12, 13));
     }
 
-    use rust_algos_illuminated::chapter_one::{selectionSort, isSorted, MergeSort};
+    use rust_algos_illuminated::chapter_one::{selectionSort, isSorted, MergeSelectionSort};
 
     #[test]
     fn test_isSorted() {
@@ -54,8 +54,8 @@ mod tests {
     }
 
     #[test]
-    fn test_MergeSort() {
-        assert_eq!(MergeSort([2i32, 4i32, 1i32 ,3i32, 5i32, 6i32, 7i32, 8i32].to_vec()),
+    fn test_MergeSelectionSort() {
+        assert_eq!(MergeSelectionSort([2i32, 4i32, 1i32 ,3i32, 5i32, 6i32, 7i32, 8i32].to_vec()),
             [1i32, 2i32, 3i32, 4i32, 5i32, 6i32, 7i32, 8i32].to_vec());
     }
 
