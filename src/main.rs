@@ -1,6 +1,15 @@
 #![feature(test)]
+/// ************************************************
+/// A collection of algorithms as presented in
+/// the book "Algorithms Illuminated Part 1" by Tim
+/// Roughgarden.
+/// -----------------------------------------------
+/// ************************************************
+/// (names of functions are the same as names
+///  of algorithms in the book)
+mod chapter_one;
 
-use rust_algos_illuminated::chapter_one::{RecIntMul, Karatsuba};
+use chapter_one::{RecIntMul, Karatsuba};
 
 mod tests;
 

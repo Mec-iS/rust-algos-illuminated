@@ -2,16 +2,16 @@
 // (names of functions are the same as names
 //  of algorithms in the book)
 
-extern crate test;
-
+extern crate test;  // load test crate
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use test::Bencher;
 
-    use rust_algos_illuminated::chapter_one::{
-        RecIntMul, Karatsuba, IntMul};
+    use crate::chapter_one::{
+        RecIntMul, Karatsuba, IntMul,
+        selectionSort, isSorted, MergeSelectionSort};
 
     #[test]
     fn test_RecIntMul() {
@@ -37,8 +37,6 @@ mod tests {
     fn bench_chap1_mult_std(b: &mut Bencher) {
         b.iter(|| IntMul(12, 13));
     }
-
-    use rust_algos_illuminated::chapter_one::{selectionSort, isSorted, MergeSelectionSort};
 
     #[test]
     fn test_isSorted() {
