@@ -3,6 +3,3 @@ name = "rust-algos-illuminated"
 version = "0.1.0"
 authors = ["Mec-iS <tunedconsulting@gmail.com>"]
 edition = "2018"
-
-[lib]
-crate-type = ["cdylib"]

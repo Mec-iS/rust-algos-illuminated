@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
-/// *********************************
-/// Module for Chapter One Algorithms
-/// *********************************
+//! *********************************
+//! Module for Chapter One Algorithms
+//! *********************************
 
 /// Standard library multiplication
 #[no_mangle]
@@ -12,10 +12,10 @@ pub extern fn IntMul(x: u64, y: u64) -> u64 {
     x * y
 }
 
-// PARAGRAPH 1.3.2
-// a recursive implementation by
-// slicing into shorter integers (n/2-digits integers)
-// (integers have same lenght n)
+/// PARAGRAPH 1.3.2
+/// a recursive implementation by
+/// slicing into shorter integers (n/2-digits integers)
+/// (integers have same lenght n)
 #[no_mangle]
 pub extern fn RecIntMul(x: u64, y: u64) -> u64 {
     // x * y = 10^n * (a*c) + 10^n/2 * (a*d+b*c) + (b*d)
