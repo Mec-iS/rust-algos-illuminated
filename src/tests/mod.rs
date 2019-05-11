@@ -86,7 +86,7 @@ mod tests {
     #[bench]
     fn bench_queue_pop_raw(b: &mut Bencher) {
         b.iter(|| {
-            let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+            let mut q = Queue::new();
             q.push('0');
             q.push('1');
             q.push('字');
@@ -102,7 +102,7 @@ mod tests {
     #[bench]
     fn bench_queue_pop_swap(b: &mut Bencher) {
         b.iter(|| {
-            let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+            let mut q = Queue::new();
             q.push('0');
             q.push('1');
             q.push('字');

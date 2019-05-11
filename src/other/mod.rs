@@ -49,4 +49,15 @@ impl Queue {
 
         self.q_out.pop()
     }
+
+    /// move ownership as pass `self` by value. Two new queues are returned, the
+    /// original one got "unitialized".
+    pub fn split(self) -> (Vec<char>, Vec<char>) {
+        (self.q_in, self.q_out)
+    }
+
+    /// constructor. "Static method"
+    pub fn new() -> Queue {
+        Queue { q_in: Vec::new(), q_out: Vec::new() }
+    }
 }
