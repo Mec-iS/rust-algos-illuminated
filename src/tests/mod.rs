@@ -13,6 +13,8 @@ mod tests {
         RecIntMul, Karatsuba, IntMul,
         selectionSort, isSorted, MergeSelectionSort};
 
+    use crate::other::Queue;
+
     #[test]
     fn test_RecIntMul() {
         assert_eq!(RecIntMul(2, 3), (2 * 3));
@@ -55,6 +57,62 @@ mod tests {
     fn test_MergeSelectionSort() {
         assert_eq!(MergeSelectionSort([2i32, 4i32, 1i32 ,3i32, 5i32, 6i32, 7i32, 8i32].to_vec()),
             [1i32, 2i32, 3i32, 4i32, 5i32, 6i32, 7i32, 8i32].to_vec());
+    }
+
+    #[test]
+    fn test_queue_raw() {
+        let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+        q.push('0');
+        q.push('1');
+        assert_eq!(q.pop_raw(), Some('0'));
+        q.push('∞');
+        assert_eq!(q.pop_raw(), Some('1'));
+        assert_eq!(q.pop_raw(), Some('∞'));
+        assert_eq!(q.pop_raw(), None);
+    }
+
+    #[test]
+    fn test_queue_swap() {
+        let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+        q.push('0');
+        q.push('1');
+        assert_eq!(q.pop_swap(), Some('0'));
+        q.push('∞');
+        assert_eq!(q.pop_swap(), Some('1'));
+        assert_eq!(q.pop_swap(), Some('∞'));
+        assert_eq!(q.pop_swap(), None);
+    }
+
+    #[bench]
+    fn bench_queue_pop_raw(b: &mut Bencher) {
+        b.iter(|| {
+            let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+            q.push('0');
+            q.push('1');
+            q.push('字');
+            q.pop_raw();
+            q.push('∞');
+            q.pop_raw();
+            q.pop_swap();
+            q.pop_raw();
+            q.pop_raw();
+        });
+    }
+
+    #[bench]
+    fn bench_queue_pop_swap(b: &mut Bencher) {
+        b.iter(|| {
+            let mut q = Queue { q_out: Vec::new(), q_in: Vec::new() };
+            q.push('0');
+            q.push('1');
+            q.push('字');
+            q.pop_swap();
+            q.push('∞');
+            q.pop_swap();
+            q.pop_swap();
+            q.pop_swap();
+            q.pop_swap();
+        });
     }
 
 }

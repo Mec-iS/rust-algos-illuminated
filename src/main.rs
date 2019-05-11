@@ -8,6 +8,7 @@
 //! (names of functions are the same as names
 //!  of algorithms in the book)
 mod chapter_one;
+mod other;
 
 use chapter_one::{RecIntMul, Karatsuba};
 
